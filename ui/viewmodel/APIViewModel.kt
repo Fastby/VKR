@@ -305,6 +305,14 @@ class AuthViewModel(private val repository: ApiRepository) : ViewModel() {
         )
     }
 
+    fun getUserRole(): String? {
+        return repository.tokenManager.getCurrentUserRole()
+    }
+
+    fun getUserName(): String? {
+        return repository.tokenManager.getCurrentUserName()
+    }
+
     fun taskComplete(
         taskId: Long,
         onSuccess: () -> Unit,
@@ -415,7 +423,7 @@ class AuthViewModel(private val repository: ApiRepository) : ViewModel() {
                         content = message.content,
                         senderId = message.senderId,
                         chatId = message.chatId,
-                        senderName = "Никита" // TODO: Запросить имя отправителя через API
+                        senderName = message.senderName?: "Аноним"
                     )
                     messages.value = messages.value.toMutableList().apply { add(newMessage) }
                     Log.d("WebSocket", "Messages updated: ${messages.value.size}")

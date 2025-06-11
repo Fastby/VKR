@@ -26,20 +26,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.mydiplom.ui.api.ApiRepository
 import com.example.mydiplom.ui.navigation.Routes
+import com.example.mydiplom.ui.viewmodel.AuthViewModel
 
 @Composable
 fun ProfileScreenDraw(
     navHostController: NavHostController
 ){
+    val context = LocalContext.current
+    val viewModel: AuthViewModel = viewModel(
+        factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return AuthViewModel(ApiRepository(context)) as T
+            }
+        }
+    )
     val phonenumber = "+79237300209"
-    val name = "Александр Федорович"
-    val post = "Сотрудник"
+    val name = viewModel.getUserName()
+    val post = viewModel.getUserRole()
     Column(
         modifier = Modifier
             .fillMaxSize(),
