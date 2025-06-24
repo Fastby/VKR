@@ -34,12 +34,12 @@ fun MainLobbyDraw(
     navHostController: NavHostController,
     startRoute: String = Routes.Main.route
 ) {
-    // 1. Локальное состояние для текущей вкладки
+
     var currentTab by rememberSaveable { mutableStateOf(Routes.Main.route) }
 
     val onTabSelected: (String) -> Unit = { newTab ->
         if (currentTab != newTab) {
-            currentTab = newTab // Просто меняем состояние
+            currentTab = newTab
         }
     }
 
@@ -52,7 +52,7 @@ fun MainLobbyDraw(
         }
     )
 
-    // 3. Единый Scaffold, который не пересоздается
+
     Scaffold(
         topBar = { TopPanel(navHostController) },
         bottomBar = {
@@ -62,7 +62,7 @@ fun MainLobbyDraw(
             )
         }
     ) { padding ->
-        // 4. Плавное переключение контента
+
         AnimatedContent(
             targetState = currentTab,
             modifier = Modifier

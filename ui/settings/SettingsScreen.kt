@@ -36,7 +36,7 @@ fun SettingsScreenDraw(
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // Выбор темы
+
         Card {
             Column(
                 modifier = Modifier
@@ -85,7 +85,7 @@ fun SettingsScreenDraw(
             }
         }
 
-        // Кнопка сброса настроек
+
         Button(
             onClick = {
                 settingsManager.clearTheme()
@@ -96,7 +96,7 @@ fun SettingsScreenDraw(
             Text("Сбросить настройки")
         }
 
-        // Кнопка выхода из аккаунта
+
         Button(
             onClick = {
                 tokenManager.clearToken()
@@ -111,11 +111,11 @@ fun SettingsScreenDraw(
     }
 }
 
-// Предполагаемые константы, определенные где-то в коде
+
 const val THEME_WHITE = 0
 const val THEME_BLACK = 1
 
-// Заглушка для SettingsManager, если она не определена
+
 class SettingsManager(context: android.content.Context) {
     fun getTheme(): Int = THEME_WHITE
     fun saveTheme(theme: Int) {}

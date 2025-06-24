@@ -102,7 +102,7 @@ fun TopPanel(
                         searchResults.value = emptyList()
                     }
                 },
-                placeholder = { Text("Поиск чатов") }, // Исправлено здесь
+                placeholder = { Text("Поиск чатов") },
                 singleLine = true,
                 modifier = Modifier
                     .heightIn(min = 48.dp)
@@ -133,7 +133,7 @@ fun TopPanel(
             }
         }
 
-        // Показать результаты поиска
+
         if (showResults.value && searchResults.value.isNotEmpty()) {
             Card(
                 modifier = Modifier
@@ -163,7 +163,7 @@ fun TopPanel(
             }
         }
 
-        // Показать индикатор загрузки
+
         if (viewModel.isLoading.value && showResults.value) {
             Box(
                 modifier = Modifier
@@ -175,7 +175,7 @@ fun TopPanel(
             }
         }
 
-        // Показать сообщение, если нет результатов
+
         if (showResults.value && searchResults.value.isEmpty() && !viewModel.isLoading.value) {
             Box(
                 modifier = Modifier

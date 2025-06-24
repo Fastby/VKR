@@ -78,7 +78,7 @@ class WebSocketManager(private val context: Context) {
             } catch (e: Exception) {
                 Log.e("WebSocket", "Error starting connection: ${e.message}")
                 onError("Ошибка подключения к WebSocket: ${e.message}")
-                // Переподключение через 5 секунд
+
                 delay(5000)
                 startConnection(onError)
             }

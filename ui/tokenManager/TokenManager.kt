@@ -70,7 +70,7 @@ class TokenManager(private val context: Context) {
 
             val json = JSONObject(payload)
 
-            // Проверяем оба варианта названия роли
+
             json.optString("role").takeIf { it.isNotEmpty() }
                 ?: json.optString("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
                     .takeIf { it.isNotEmpty() }

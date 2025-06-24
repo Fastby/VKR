@@ -101,7 +101,7 @@ class AuthViewModel(private val repository: ApiRepository) : ViewModel() {
 
     private lateinit var webSocketManager: WebSocketManager
     private var currentChatId: Long = 0
-    private var isWebSocketInitialized = false // Флаг для предотвращения повторной инициализации
+    private var isWebSocketInitialized = false
 
     /*------------------------ API - ФУНКЦИИ -----------------------------*/
 
@@ -267,7 +267,7 @@ class AuthViewModel(private val repository: ApiRepository) : ViewModel() {
             onSuccess = {
                 isLoading.value = false
                 onSuccess()
-                loadTasks() // Обновляем список задач после изменения статуса
+                loadTasks()
             },
             onError = { error ->
                 isLoading.value = false
@@ -380,10 +380,10 @@ class AuthViewModel(private val repository: ApiRepository) : ViewModel() {
             return
         }
 
-        // Отправляем через WebSocket
+
         webSocketManager.sendMessage(chatId, messageText)
 
-        // Оптимистично обновляем UI
+
         val newMessage = Message(
             content = messageText,
             senderId = currentUserId,
@@ -454,7 +454,7 @@ class AuthViewModel(private val repository: ApiRepository) : ViewModel() {
             override fun onMessagesRead(userId: Long, chatId: Long) {
                 Log.d("WebSocket", "Messages read by user $userId in chat $chatId")
                 if (chatId == currentChatId) {
-                    // Обновить UI, если нужно
+
                 }
             }
         })
@@ -522,7 +522,7 @@ class AuthViewModel(private val repository: ApiRepository) : ViewModel() {
                         showCreateChatDialog = false
                         newChatName = ""
                         selectedUsers = emptySet()
-                        loadChats() // Обновляем список чатов
+                        loadChats()
                     }
                 } else {
                     createChatError = response.errorBody()?.string() ?: "Ошибка создания чата"
@@ -575,11 +575,11 @@ class AuthViewModel(private val repository: ApiRepository) : ViewModel() {
 
         LaunchedEffect(Unit) {
             loadChats()
-            loadUsers() // Загружаем пользователей для выбора в диалоге
+            loadUsers()
         }
 
         Column(modifier = Modifier.fillMaxSize()) {
-            // Добавляем кнопку создания чата
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -621,7 +621,7 @@ class AuthViewModel(private val repository: ApiRepository) : ViewModel() {
                 }
             }
 
-            // Диалог создания чата
+
             if (showCreateChatDialog) {
                 AlertDialog(
                     onDismissRequest = {
@@ -950,7 +950,7 @@ class AuthViewModel(private val repository: ApiRepository) : ViewModel() {
 
                         Text("Назначить пользователей:", style = MaterialTheme.typography.labelMedium)
 
-                        // Список пользователей
+
                         UserSelectionList(
                             users = users,
                             loading = usersLoading,
@@ -991,12 +991,12 @@ class AuthViewModel(private val repository: ApiRepository) : ViewModel() {
                                     userIds = selectedUsers.toList(),
                                     onSuccess = {
                                         showCreateDialog = false
-                                        // Сброс полей
+
                                         taskName = ""
                                         taskDescription = ""
                                         completionTime = ""
                                         selectedUsers = emptySet()
-                                        // Обновление списка задач
+
                                         loadTasks()
                                     },
                                     onError = { error ->
